@@ -1,63 +1,108 @@
 ﻿# Beauty & Personal Care Customer Sentiment Analysis
 
-## Project overview
-This project explores customer feedback in the beauty and personal-care category using publicly available product reviews. The goal is to examine rating-derived sentiment, review characteristics, and recurring themes, then evaluate text-classification models in a reproducible workflow.
+## Project Overview
 
-## Research scope
-- **Domain:** Beauty & Personal Care product reviews
-- **Language:** English reviews for the initial analysis
-- **Initial pilot:** 5,000 reviews from one dataset shard
-- **Planned wider sample:** approximately 50,000 reviews, subject to data access and quality checks
-- **Sentiment labels:** 1â€“2 stars = negative; 3 stars = neutral; 4â€“5 stars = positive
+This project focuses on understanding customer feedback on beauty and personal-care products through data science and sentiment analysis. Using publicly available product reviews, the project aims to explore customer opinions, identify patterns in review data, and develop a reproducible approach to analysing review sentiment.
 
-These are rating-derived weak labels, not independently verified human sentiment annotations. The current pilot comes from one shard and should not be treated as representative of the entire category.
+The project is being developed as part of a six-week Data Science with Python internship. Each completed weekly task will contribute to the project's research, implementation, analysis, and final findings.
 
-## Current progress
-- [x] Inspected the source schema and a 1,000-review sample
-- [x] Prepared and verified a 5,000-review pilot
-- [x] Created exploratory charts and summary outputs
-- [x] Ran exploratory Kruskalâ€“Wallis and pairwise tests
-- [ ] Improve sampling across shards before drawing category-wide conclusions
-- [ ] Complete cleaning documentation and validated theme analysis
-- [ ] Train and compare text-classification baselines and candidate models
-- [ ] Prepare final model evaluation and business recommendations
+## Week 1: Problem Definition and Research Plan
 
-## Repository structure
+**Status:** Completed
+
+The first week establishes the research problem, defines the project scope, identifies research questions, and outlines the proposed analytical approach.
+
+The central research problem is to understand how customer reviews can be analysed to identify sentiment patterns and recurring feedback themes in the beauty and personal-care category.
+
+### Research Objectives
+
+- Explore customer feedback on beauty and personal-care products.
+- Define a consistent approach to categorising review sentiment.
+- Identify useful variables for exploratory data analysis.
+- Develop a plan for text preprocessing and sentiment classification.
+- Establish suitable evaluation methods and document the study's limitations.
+
+## Research Scope
+
+| Area | Description |
+|---|---|
+| Domain | Beauty and personal-care products |
+| Data type | Publicly available product reviews |
+| Initial language scope | English |
+| Sentiment categories | Negative, neutral, and positive |
+| Research approach | Data exploration, statistical analysis, and text classification |
+
+### Proposed Sentiment Labels
+
+For the planned baseline analysis, star ratings will be used to derive initial sentiment labels:
+
+- **1–2 stars:** Negative
+- **3 stars:** Neutral
+- **4–5 stars:** Positive
+
+These are weak labels based on ratings, not independently verified sentiment annotations. A written review may express a different sentiment from its associated rating.
+
+## Dataset
+
+The planned data source is **Amazon-Reviews-2023**, published by McAuley-Lab.
+
+Dataset: https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023
+
+The project will focus on the Beauty and Personal Care category. Sampling, data quality, language filtering, and dataset access will be assessed as the workflow develops.
+
+Raw review data and review-level datasets will remain local unless redistribution is permitted. Dataset terms and applicable licensing conditions must be checked before sharing data.
+
+## Planned Technology Stack
+
+- **Programming:** Python
+- **Data analysis:** Pandas, NumPy
+- **Visualisation:** Matplotlib, Seaborn
+- **Statistical analysis:** SciPy
+- **Dataset access:** Hugging Face Datasets
+- **Machine learning:** Scikit-learn
+- **Version control:** Git and GitHub
+
+Tools and dependencies may be refined as the project progresses.
+
+## Project Roadmap
+
+The repository will be updated incrementally as each internship task is completed.
+
+- [x] **Week 1:** Problem definition and research planning
+- [ ] **Upcoming weeks:** Add the relevant deliverables after each task is completed and reviewed
+- [ ] **Final stage:** Consolidate validated results, model evaluation, limitations, and business recommendations
+
+This roadmap reflects the reporting process; individual tasks will be documented when their requirements and results are available.
+
+## Research Limitations
+
+- Star ratings may not accurately represent the sentiment expressed in review text.
+- Reviews are self-selected and specific to the source platform.
+- Findings depend on the sampling method, data quality, and category coverage.
+- Statistical associations do not establish causation.
+- Predictive performance against rating-derived labels does not establish agreement with verified human sentiment or product efficacy.
+
+## Repository Structure
+
 ```text
 Beauty-Wellness-Sentiment-Analysis/
-â”œâ”€â”€ data/
-â”‚   â”œâ”€â”€ raw/                 # Local raw data; excluded from Git
-â”‚   â””â”€â”€ processed/           # Local processed data; excluded from Git
-â”œâ”€â”€ notebooks/               # Optional exploratory notebooks
-â”œâ”€â”€ reports/                 # Word reports and generated analysis summaries
-â”œâ”€â”€ results/
-â”‚   â”œâ”€â”€ figures/              # Exported charts
-â”‚   â””â”€â”€ models/               # Local model artifacts; excluded from Git
-â”œâ”€â”€ src/
-â”‚   â”œâ”€â”€ inspect_dataset.py
-â”‚   â”œâ”€â”€ prepare_data.py
-â”‚   â”œâ”€â”€ eda.py
-â”‚   â””â”€â”€ statistical_analysis.py
-â”œâ”€â”€ .gitignore
-â”œâ”€â”€ requirements.txt
-â””â”€â”€ README.md
+├── reports/
+│   └── week_01_problem_definition_and_research_plan.docx
+├── src/
+│   └── inspect_dataset.py
+├── .gitignore
+├── requirements.txt
+└── README.md
 ```
 
-## Tools
-Python, Pandas, NumPy, Matplotlib, Seaborn, SciPy, Hugging Face Datasets, and scikit-learn.
-
-## Data source
-McAuley-Lab, **Amazon-Reviews-2023**:
-https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023
-
-Review dataset access, usage terms, and any applicable license must be checked before redistribution. Raw review data and processed review-level CSV files are intentionally excluded from this repository. The repository should contain code, documentation, and appropriately aggregated outputs rather than a copy of the dataset.
-
-## Important limitations
-- Ratings are used as weak labels; written sentiment may disagree with the star rating.
-- The review sample is self-selected and platform-specific.
-- A single-shard pilot is exploratory and does not establish category-wide patterns.
-- Statistical association does not imply causation.
-- Model evaluation measures prediction of rating-derived labels, not verified sentiment or product efficacy.
+Additional scripts, reports, notebooks, and outputs will be added to the public repository when they are ready to share.
 
 ## Reproducibility
-Create and activate a Python virtual environment, install dependencies from `requirements.txt`, then run scripts from the repository root. Exact commands and tested package versions will be documented as the workflow stabilizes.
+
+The project uses a Python virtual environment to keep dependencies organised. The required packages are listed in `requirements.txt`. Execution instructions and tested package versions will be documented as the implementation stabilises.
+
+## Project Status
+
+The research problem and initial analytical plan have been defined. The next steps will follow the internship's weekly requirements, with the README updated alongside each completed and published deliverable.
+
+**Project repository:** https://github.com/SommayDewat/Beauty-Wellness-Sentiment-Analysis

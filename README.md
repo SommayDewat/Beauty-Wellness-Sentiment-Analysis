@@ -64,13 +64,15 @@ Raw review data and review-level datasets will remain local unless redistributio
 
 Tools and dependencies may be refined as the project progresses.
 
-## Project Roadmap
 
-The repository will be updated incrementally as each internship task is completed.
+## Project Progress
 
-- [x] **Week 1:** Problem definition and research planning
-- [ ] **Upcoming weeks:** Add the relevant deliverables after each task is completed and reviewed
-- [ ] **Final stage:** Consolidate validated results, model evaluation, limitations, and business recommendations
+- [x] Week 1: Problem Definition and Research Planning
+- [x] Week 2: Data Sourcing Strategy and Initial Analysis Planning
+- [ ] Week 3: Data Collection and Preparation
+- [ ] Week 4: Exploratory Data Analysis and Statistical Testing
+- [ ] Week 5: Sentiment Classification and Model Evaluation
+- [ ] Week 6: Final Insights, Documentation, and Presentation
 
 This roadmap reflects the reporting process; individual tasks will be documented when their requirements and results are available.
 

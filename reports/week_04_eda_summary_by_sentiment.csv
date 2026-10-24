@@ -1,0 +1,4 @@
+sentiment,review_count,mean_words,median_words,mean_helpful_votes,median_helpful_votes
+negative,380,56.94,33.5,2.24,0.0
+neutral,378,85.0,61.0,1.46,0.0
+positive,4242,69.43,57.0,0.76,0.0

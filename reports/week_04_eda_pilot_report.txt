@@ -1,0 +1,22 @@
+BEAUTY & WELLNESS SENTIMENT ANALYSIS — PILOT EDA
+Reviews analyzed: 5,000
+Unique products (ASIN): 4,837
+
+Sentiment distribution:
+sentiment
+positive    4242
+negative     380
+neutral      378
+
+Summary by sentiment:
+           review_count  mean_words  median_words  mean_helpful_votes  median_helpful_votes
+sentiment                                                                                  
+negative            380       56.94          33.5                2.24                   0.0
+neutral             378       85.00          61.0                1.46                   0.0
+positive           4242       69.43          57.0                0.76                   0.0
+
+Kruskal-Wallis test for review word counts:
+H statistic: 60.9003
+P-value: 5.9658929e-14
+
+Caution: This is a pilot from one dataset shard. Sentiment labels are derived from star ratings.

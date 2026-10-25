@@ -1,181 +1,214 @@
-﻿# Beauty & Personal Care Customer Sentiment Analysis
+﻿<div align="center">
 
-A six-week Data Science with Python project focused on preparing and analyzing public customer reviews in the beauty and personal-care domain. The project uses the Amazon Reviews 2023 dataset's `Beauty_and_Personal_Care` category to study rating-derived sentiment, review characteristics, and text-classification opportunities.
+# Beauty & Personal Care Customer Sentiment Analysis
 
-> **Current progress:** Weeks 1–3 deliverables have been prepared. The Week 3 cleaning pipeline has been run and validated on a 5,000-row pilot sample. Later analysis and modelling stages are not marked complete here until their deliverables are finalized.
+**A reproducible data science project exploring customer reviews and evaluating rating-derived sentiment classification.**
 
-## Project Objectives
+[![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![pandas](https://img.shields.io/badge/Data-pandas-150458?logo=pandas&logoColor=white)](https://pandas.pydata.org/)
+[![scikit-learn](https://img.shields.io/badge/ML-scikit--learn-F7931E?logo=scikitlearn&logoColor=white)](https://scikit-learn.org/)
+[![Project](https://img.shields.io/badge/Scope-5%2C000%20review%20pilot-2E8B57)](https://github.com/SommayDewat/Beauty-Wellness-Sentiment-Analysis)
 
-- Define research questions for customer review and sentiment analysis.
-- Identify a suitable public dataset and document sourcing decisions.
-- Build a reproducible data-cleaning and preprocessing pipeline.
-- Explore rating, review-text, and helpful-vote patterns.
-- Evaluate text-based sentiment classification using transparent metrics.
-- Document limitations, data quality decisions, and results for reproducibility.
+[**GitHub Repository**](https://github.com/SommayDewat/Beauty-Wellness-Sentiment-Analysis) · **Domain:** Beauty & Personal Care · **Project:** Six-week applied data science internship
 
-## Dataset and Scope
+</div>
 
-**Primary source:** [Amazon Reviews 2023](https://amazon-reviews-2023.github.io/)  
-**Category:** `Beauty_and_Personal_Care`
+---
 
-The project uses review text and star ratings, with product identifiers, review dates, helpful-vote fields, and other metadata when available in the selected source files.
+## Overview
 
-The local pilot contains 5,000 review records from one shard. This is a development sample, not a representative estimate of the entire category. A broader sample was planned, subject to file availability, quality checks, and access constraints.
+Online beauty and personal-care reviews contain useful feedback about product experience, fragrance, texture, packaging, value, and customer expectations. This project builds a reproducible workflow to inspect, clean, analyze, and model customer-review text from the Beauty & Personal Care category.
 
-### Rating-derived sentiment labels
+The work progressed from problem definition and data sourcing to data cleaning, exploratory data analysis (EDA), statistical testing, feature engineering, text-model comparison, error analysis, and business recommendations.
 
-For supervised experiments, ratings are mapped to weak sentiment labels:
+> **Scope note:** Results are from a 5,000-review pilot drawn from one Amazon Reviews 2023 dataset shard. They should not be interpreted as representative of the full category or all beauty consumers.
 
-| Star rating | Label |
+## Objectives
+
+- Profile rating-derived sentiment and review-text characteristics.
+- Clean and validate the pilot while documenting quality checks.
+- Explore review-length and helpful-vote patterns using descriptive statistics and non-parametric tests.
+- Engineer interpretable features without using rating as a model input.
+- Compare a majority-class baseline with TF-IDF + Logistic Regression and TF-IDF + Linear SVM.
+- Evaluate models using macro-F1, balanced accuracy, class-wise precision/recall, and confusion matrices.
+- Translate measured results into cautious, actionable recommendations.
+
+## Data source and label definition
+
+**Primary source:** [McAuley-Lab Amazon-Reviews-2023](https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023), Beauty & Personal Care category.
+
+Rating-derived labels are defined as:
+
+| Star rating | Project label |
 |---|---|
-| 1–2 | Negative |
-| 3 | Neutral |
-| 4–5 | Positive |
+| 1–2 stars | Negative |
+| 3 stars | Neutral |
+| 4–5 stars | Positive |
 
-These are **rating-derived weak labels**, not independent human annotations of the review text. A model trained on them predicts the rating-derived class; this is not identical to detecting every nuance of customer emotion. The rating must not be included as an input feature when predicting a label derived from that rating, because doing so would cause target leakage.
+These are **weak labels**, not independent human annotations. Written text can disagree with its rating. The classifier predicts rating-derived labels; it does not establish a customer's true emotional state or product efficacy.
 
-## Research Questions
+Raw and processed review-level CSV files are intentionally excluded from Git. Obtain the source data under its applicable terms before reproducing the analysis.
 
-The initial research plan considers the following questions:
+## Key findings
 
-1. Does the sentiment distribution differ across product subcategories, if suitable metadata is available?
-2. Does review length differ across rating-derived sentiment groups?
-3. Do helpful-vote counts differ across sentiment groups?
-4. Does the prevalence of review themes differ by sentiment?
-5. How well can review text predict rating-derived sentiment?
+### Pilot profile
 
-Planned methods include descriptive statistics and visualizations, chi-square tests with effect sizes, Kruskal–Wallis tests and corrected pairwise comparisons, and text-classification baselines using TF-IDF with models such as Logistic Regression, Multinomial Naive Bayes, and Linear SVC. Evaluation is intended to include macro-F1, balanced accuracy, per-class precision/recall, and a confusion matrix.
-
-## Project Progress
-
-- [x] **Week 1 — Problem Definition and Research Planning:** defined the problem, research questions, hypotheses, proposed methods, and sampling considerations.
-- [x] **Week 2 — Data Sourcing Strategy and Initial Analysis Planning:** documented the primary dataset, alternative/context sources, data fields, sourcing trade-offs, planned EDA, preprocessing considerations, and mappings from research questions to methods.
-- [x] **Week 3 — Data Cleaning and Preprocessing Pipeline Development:** implemented `src/clean_reviews.py`; ran it on the 5,000-row pilot; corrected Unix-millisecond date parsing; and recorded quality-check results.
-- [ ] **Week 4 — Exploratory Data Analysis and Statistical Testing:** work is separate from the completed Week 1–3 deliverables and is not marked complete in this README.
-- [ ] **Week 5 — Sentiment Classification and Model Evaluation**
-- [ ] **Week 6 — Final Insights, Documentation, and Presentation**
-
-## Week 3: Cleaning Pipeline
-
-The cleaning script is designed to:
-
-- Read CSV, JSON, JSONL, or Parquet input files.
-- Standardize recognized source column names.
-- Preserve the input file and retain the original review text.
-- Normalize text using Unicode normalization, HTML entity decoding, and whitespace cleanup.
-- Validate ratings against the expected 1–5 scale.
-- Create rating-derived sentiment labels.
-- Parse numeric Unix review timestamps as milliseconds and store normalized UTC dates.
-- Flag review-length outliers using IQR fences without automatically deleting them.
-- Record quality metrics in a JSON summary.
-
-### Pilot validation results
-
-The following results apply only to the local 5,000-row pilot and should not be generalized to the entire category.
-
-| Check | Observed result |
+| Measure | Result |
 |---|---:|
-| Input rows | 5,000 |
-| Cleaned output rows | 5,000 |
-| Output columns | 18 |
-| Missing values in cleaned output | 0 |
-| Blank cleaned review text | 0 |
-| Invalid ratings | 0 |
-| Exact duplicate output rows | 0 |
-| Parsed dates missing after timestamp correction | 0 |
-| Review-length outliers flagged | 162 |
-| Rows eligible for text-supervised modelling | 5,000 |
+| Reviews | 5,000 |
+| Positive | 4,242 (84.84%) |
+| Negative | 380 (7.60%) |
+| Neutral | 378 (7.56%) |
+| Unique product IDs | 4,837 |
+| Unique parent product IDs | 4,667 |
+| Mean review length | 69.66 words |
+| Median review length | 55 words |
 
-### Rating-derived label distribution in the pilot
+The class imbalance makes accuracy alone misleading; macro-F1 and class-level metrics are important.
 
-| Label | Reviews | Share |
-|---|---:|---:|
-| Positive | 4,242 | 84.84% |
-| Negative | 380 | 7.60% |
-| Neutral | 378 | 7.56% |
+### Model evaluation
 
-The pilot is imbalanced toward positive labels. Subsequent model evaluation should therefore report macro-F1, balanced accuracy, per-class metrics, and a confusion matrix rather than relying on accuracy alone.
+A stratified split created 4,000 training reviews and 1,000 held-out test reviews (random seed 42). Candidate selection used five-fold cross-validation on the training split.
 
-The existing `sentiment` field agreed with the rating-derived `sentiment_label` on all 5,000 pilot rows. This is a consistency check, not independent proof of sentiment accuracy.
+| Model | Test accuracy | Balanced accuracy | Macro-F1 | Weighted F1 |
+|---|---:|---:|---:|---:|
+| **Logistic Regression + TF-IDF** | 89.40% | **70.68%** | **71.33%** | **89.46%** |
+| Linear SVM + TF-IDF | 89.60% | 58.38% | 64.45% | 87.96% |
+| Majority-class baseline | 84.80% | 33.33% | 30.59% | 77.83% |
 
-## Repository Structure
+Logistic Regression was selected based on the highest training cross-validation macro-F1 (0.6626). Linear SVM had marginally higher test accuracy, but lower macro-F1 and balanced accuracy.
+
+### Logistic Regression: class-level results
+
+| Class | Precision | Recall | F1-score | Test support |
+|---|---:|---:|---:|---:|
+| Negative | 74.60% | 61.84% | 67.63% | 76 |
+| Neutral | 48.28% | 55.26% | 51.53% | 76 |
+| Positive | 94.71% | 94.93% | 94.82% | 848 |
+
+The model made 894 correct predictions and 106 errors on the test set. Neutral classification is the clearest improvement area; negative-review recall also needs attention.
+
+## Methodology
+
+1. **Problem definition and sourcing:** define the business question, data requirements, source constraints, and weak-label strategy.
+2. **Cleaning and validation:** normalize fields, validate ratings and timestamps, preserve source data, and produce a quality summary.
+3. **EDA and statistics:** profile class balance and review characteristics; use Kruskal–Wallis and pairwise tests where appropriate.
+4. **Feature engineering:** create title/review length measures, log-transformed counts, date-derived fields, and purchase-verification indicators for exploratory use.
+5. **Text modelling:** combine title and cleaned review text; apply TF-IDF unigrams and bigrams; compare baseline, Logistic Regression, and Linear SVM.
+6. **Evaluation:** use stratified five-fold cross-validation on training data and a held-out test set; inspect class metrics and confusion matrix.
+7. **Error analysis:** examine misclassified reviews and document limitations and business implications.
+
+Rating, duplicate label fields, product identifiers, and date/helpful-vote fields are not used as input features in the initial text-only models.
+
+## Repository structure
 
 ```text
 Beauty-Wellness-Sentiment-Analysis/
 ├── README.md
 ├── requirements.txt
+├── .gitignore
 ├── src/
-│   ├── inspect_dataset.py
-│   ├── prepare_data.py
 │   ├── clean_reviews.py
 │   ├── eda.py
-│   └── statistical_analysis.py
+│   ├── statistical_analysis.py
+│   ├── feature_engineering.py
+│   └── train_models.py
 ├── reports/
-│   ├── week_01_problem_definition_and_research_plan.docx
-│   ├── week_02_data_sourcing_strategy_and_initial_analysis_plan.docx
-│   └── week_03_data_cleaning_and_preprocessing_pipeline_with_results.docx
-├── data/
-│   ├── raw/
-│   └── processed/
+│   ├── week_05_predictive_modeling_and_algorithm_selection.docx
+│   ├── week_06_error_analysis.txt
+│   ├── week_06_model_evaluation_reporting_business_impact.docx
+│   └── EDA and statistical-analysis summaries
 ├── results/
-│   └── week_03_cleaning_quality_summary_v2.json
-└── notebooks/
+│   ├── figures/
+│   │   ├── feature-review plots
+│   │   └── week_05_confusion_matrix_*.png
+│   ├── week_03_cleaning_quality_summary.json
+│   ├── week_04_feature_engineering_summary.json
+│   ├── week_05_model_comparison.csv
+│   ├── week_05_test_metrics.csv
+│   ├── week_05_classification_report.csv
+│   └── week_05_training_metadata.json
+├── data/       # Local only; excluded from Git
+└── notebooks/  # Optional; currently placeholder only
 ```
 
-Some paths shown above are local working files and may be excluded from Git. Raw or processed review datasets are not required to be published with the repository. Week 4 files may exist locally but are not represented as completed deliverables here.
+This is a guide to the main artifacts, not a guarantee that every optional file exists in every checkout. Check the actual directory contents before running scripts.
 
-## Running the Cleaning Pipeline
+## Reproducing the analysis
 
-Use Python in the project's virtual environment and install dependencies from `requirements.txt` if needed.
-
-Example from the project root in PowerShell:
+### 1. Clone the repository
 
 ```powershell
-python .\src\clean_reviews.py `
-    --input ".\data\processed\beauty_reviews_pilot.csv" `
-    --output ".\data\processed\beauty_reviews_pilot_cleaned_v2.csv" `
-    --summary ".\results\week_03_cleaning_quality_summary_v2.json" `
-    --verbose
+git clone https://github.com/SommayDewat/Beauty-Wellness-Sentiment-Analysis.git
+cd Beauty-Wellness-Sentiment-Analysis
 ```
 
-The input and output paths must be different. The script does not automatically download the source dataset. Confirm the actual file schema before using it with another source file.
+### 2. Set up Python (Windows PowerShell)
 
-## Tools and Technologies
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
 
-- **Python** — pipeline implementation and analysis
-- **pandas** — tabular data inspection, cleaning, validation, and export
-- **NumPy** — numeric validation and calculations
-- **Regular expressions and Python text utilities** — text normalization
-- **Matplotlib / Seaborn** — planned data-quality and exploratory visualizations
-- **scikit-learn** — planned TF-IDF features, classification baselines, and evaluation
-- **Git and GitHub** — version control and project documentation
+### 3. Obtain the data
 
-## Reproducibility and Data Handling
+Obtain the appropriate review data from the [Amazon-Reviews-2023 dataset](https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023) and place the local cleaned pilot at:
 
-- Preserve raw input files; write cleaned data to a separate output.
-- Document schema assumptions, field mappings, exclusions, and transformation rules.
-- Keep a quality summary with row counts, missingness, rating and label distributions, duplicate checks, and outlier flags.
-- Treat outliers as flags for investigation, not automatic errors.
-- Avoid committing large raw datasets or review text unless redistribution is permitted by the source's terms.
-- Record package versions, input filenames, and code changes when producing final results.
+```text
+data/processed/beauty_reviews_pilot_cleaned_v2.csv
+```
 
-## Limitations
+Data is intentionally not included in this repository. Confirm source terms and schema before running the pipeline.
 
-- The 5,000-row pilot comes from one shard and may be affected by sampling bias.
-- Public platform reviews may not represent all customers or the broader market.
-- Rating-derived labels are weak labels and may not perfectly reflect the sentiment expressed in text.
-- The pilot label distribution is imbalanced.
-- Product/category metadata may be incomplete or unavailable for some analyses.
-- Outlier thresholds are screening tools; unusual reviews can contain valid customer experiences.
+### 4. Run the main analysis scripts
 
-## References
+Run commands from the repository root:
 
-- [Amazon Reviews 2023 dataset](https://amazon-reviews-2023.github.io/)
-- [pandas documentation](https://pandas.pydata.org/docs/)
-- [NumPy documentation](https://numpy.org/doc/)
-- [scikit-learn documentation](https://scikit-learn.org/stable/)
-- [Matplotlib documentation](https://matplotlib.org/stable/)
+```powershell
+python src/feature_engineering.py
+python src/train_models.py
+```
+
+The training script writes comparison tables, test metrics, classification reports, confusion-matrix figures, metadata, and a local serialized model. The model artifact is ignored by Git. Earlier pipeline scripts may require specific local input paths; inspect their arguments or configuration before execution.
+
+## Business interpretation
+
+Potential use cases include organizing large volumes of feedback, highlighting review patterns for analysts, and helping teams prioritize product-page or customer-experience investigations. The model should be treated as a **prototype and analyst-assistance tool**, not as an autonomous decision-maker.
+
+Recommended next steps:
+
+- Manually annotate a representative sample and compare human sentiment with rating-derived labels.
+- Improve neutral and negative recall using training-only cross-validation.
+- Expand sampling across shards and products before making broader claims.
+- Validate performance on a later or product-separated sample.
+- Monitor macro-F1, per-class recall, and confusion matrices—not accuracy alone.
+
+## Limitations and responsible use
+
+- The pilot comes from one shard and may be affected by sampling bias.
+- Labels are rating-derived weak labels and are not independently human-verified.
+- The class distribution is imbalanced.
+- Statistical association does not establish causation.
+- No revenue lift, cost savings, or causal business impact was measured.
+- Review opinions about product effectiveness are not clinical evidence.
+- Public availability does not automatically permit redistribution; raw review-level data is excluded from this repository.
+
+## Project artifacts
+
+- [Source repository](https://github.com/SommayDewat/Beauty-Wellness-Sentiment-Analysis)
+- [Amazon Reviews 2023 dataset](https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023)
+- Model comparison: `results/week_05_model_comparison.csv`
+- Test metrics: `results/week_05_test_metrics.csv`
+- Class report: `results/week_05_classification_report.csv`
+- Error analysis: `reports/week_06_error_analysis.txt`
 
 ---
 
-**Project repository:** https://github.com/SommayDewat/Beauty-Wellness-Sentiment-Analysis
+<div align="center">
+
+**Six-week applied data science internship project**  
+*Evidence-led analysis · Reproducible workflow · Transparent limitations*
+
+</div>

@@ -22,3 +22,6 @@ results/models/*
 .DS_Store
 Thumbs.db
 .vscode/
+
+# Test predictions contain review text
+results/week_05_test_predictions.csv

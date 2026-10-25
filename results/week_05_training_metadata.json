@@ -1,0 +1,16 @@
+{
+  "dataset_rows": 5000,
+  "training_rows": 4000,
+  "test_rows": 1000,
+  "random_state": 42,
+  "target": "sentiment",
+  "label_source": "Rating-derived weak labels",
+  "input_features": [
+    "review_title",
+    "review_text_clean"
+  ],
+  "selected_model_by_training_cv_macro_f1": "Logistic Regression",
+  "selection_metric": "5-fold CV macro-F1 on training split",
+  "test_set_used_for_model_selection": false,
+  "caution": "Metrics measure agreement with rating-derived labels, not independently human-verified sentiment."
+}

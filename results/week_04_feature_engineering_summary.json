@@ -1,0 +1,54 @@
+{
+  "input_file": "S:\\Projects\\Beauty-Wellness-Sentiment-Analysis\\data\\processed\\beauty_reviews_pilot_cleaned_v2.csv",
+  "output_file": "S:\\Projects\\Beauty-Wellness-Sentiment-Analysis\\data\\processed\\beauty_reviews_pilot_features.csv",
+  "input_rows": 5000,
+  "output_rows": 5000,
+  "rows_removed": 0,
+  "target_column": "sentiment",
+  "target_distribution": {
+    "positive": 4242,
+    "negative": 380,
+    "neutral": 378
+  },
+  "engineered_features": [
+    "title_word_count",
+    "title_char_count",
+    "review_word_count",
+    "review_char_count",
+    "review_word_count_log1p",
+    "review_year",
+    "review_month",
+    "review_year_month",
+    "helpful_vote_log1p",
+    "verified_purchase"
+  ],
+  "excluded_from_feature_file": [
+    "rating",
+    "sentiment_label",
+    "sentiment",
+    "review_date",
+    "source_row_number",
+    "product_id",
+    "parent_product_id"
+  ],
+  "missing_values_by_column": {
+    "review_title": 0,
+    "review_text_clean": 0,
+    "sentiment": 0,
+    "title_word_count": 0,
+    "title_char_count": 0,
+    "review_word_count": 0,
+    "review_char_count": 0,
+    "review_word_count_log1p": 0,
+    "review_year": 647,
+    "review_month": 647,
+    "review_year_month": 647,
+    "helpful_vote_log1p": 0,
+    "verified_purchase": 0
+  },
+  "cautions": [
+    "Do not use rating or sentiment_label as predictors for sentiment classification.",
+    "helpful_vote_log1p is not suitable for prediction before helpful votes are observed.",
+    "review_year_month may support descriptive trends but should be checked for temporal leakage."
+  ]
+}

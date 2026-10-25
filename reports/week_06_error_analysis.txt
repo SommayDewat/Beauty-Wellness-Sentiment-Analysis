@@ -1,0 +1,38 @@
+WEEK 6 — ERROR ANALYSIS
+
+Test reviews: 1000
+Correct predictions: 894
+Misclassified reviews: 106
+Error rate: 10.60%
+
+CONFUSION MATRIX
+Predicted  negative  neutral  positive
+Actual                                
+negative         47        7        22
+neutral          11       42        23
+positive          5       38       805
+
+SAMPLE MISCLASSIFICATIONS
+actual_sentiment predicted_sentiment                                                                                                                                                                                                                                                       text
+        positive             neutral Dyafin Natural looking faux lashes These are not dramatic enough for me in length - but they do definitely give you volume. They just don't show much more than volume on me. Everyone is different though. And you do get 10 pairs. That's a lot. They...
+        negative            positive                                                                                                                                                                                                    These run to wide Comfort is there but they are to wide
+        positive             neutral Not Enough Coffee Smell I love the smell of coffee, so I was excited to try this cream out. It has a nice, thick, creamy consistency. It is easy to work into the skin and doesn't leave behind any greasiness. The scent is more chocolate than coffee...
+         neutral            positive Easy to Use This is a 2 pack of green tea stick face mask. It is very easy to use. You can apply it without getting your hands messy, which I like. It glides on easily. I let it dry for the recommended 15 minutes or so. It doesn't make your face c...
+         neutral            positive                                                                                                    Good and bad Good: it melts away so you don't over scrub<br />Bad: it melts away so fast, within 5 seconds of rubbing... so I end up using a lot of it.
+         neutral            negative                                                                   Crinkled The products came super folded up due to that when you put them on they don’t come on correctly and washed off within a day. It’s a lot of money to be gone in a day literally.
+        positive             neutral Purse Size Spray I am familiar with the Oribe brand, but I don't think I've tried anything of theirs. This perfume comes in a travel or purse size spray bottle. The scent is a musky, powdery scent in my opinion. It's pretty gender neutral. I didn'...
+        negative            positive                                                                                                                     Nasty This lotion smells like watermelon that has gone bad. There is no coconut scent. It is a good lotion but I can't stand the smell
+         neutral            negative It works to some degree! I'm still wrestling with the device, it seems to be made opposite of how a hand would hold a curler to one's lashes. Which leads me to believe this was deigned by a lefty because.. why is it set up this way? I am inverting...
+         neutral            negative                                                                                                                                                           Not the best Not the best quality, a little difficult to put in. Will most likely not buy again.
+         neutral            positive                                                                       Wasn’t aware of the gold sheen Didn’t realize there was a gold sheen to this color and it totally washed me out. Giving 3 stars because I still love the other colors in this stain.
+        negative            positive                                                 It Burns I bought it because Dita Vin Teese reccomend it and she supposedly has sensitive skin. This stuff burned me so badly at just one pump and it smells really cheap, I'm surprised she recommends it
+         neutral            positive Not Seeing The Results Yet I've been using this neck tightening cream for a month now and I'm not really seeing any results. I've lost over forty pounds in the past six months and my neck skin is pretty saggy. I will keep trying it and if I do sta...
+        positive             neutral                                                                           Good value but not thick Very thin but great value. I had to add builder gel for sturdiness because my nails never skimp or break in half. @ thenailgame.com & thenailgame.store
+         neutral            negative                                                                                                              Pretty, but didn’t close correctly. Mine wouldn’t close correctly so I sent it back. It’s pretty and useful, but expect it to close properly.
+        negative             neutral Too small even for travelling This bag is too small yes it may be sturdy but it barely holds anything inside and the quality is not good at all the bag is so stiff I honestly don't see how it can be convenient for travelling at all maybe if you ar...
+        negative            positive                                                                                                                                              Smells clean alright Ugh....this smells like a scented cleaning product! Even if I liked it, it doesn't last.
+        negative             neutral it's ok The stamp part work as advertised, if you have any wrinkles in that area, it'll immediately bleed into the wrinkles. If you don't have any wrinkles, this will work great. The other side with brush is very very stiff and pointy, hurts a bit...
+         neutral            negative         Don’t recommend Did not mention how/when to use which brushes or combs and despite the fact I applied for less time than it stated, some of my hairs still fell out it one spot and they felt burned/grew back in odd directions the next 6 weeks.
+        positive             neutral Nice Color I first learned about bellapierre cosmetics through Ipsy. I was excited to try their blush. It comes in a nice, large compact. I found it to be a bit tricky to open. When I press the button, the mirror part opens out. The only way I can...
+
+LIMITATION: Labels are rating-derived weak labels and are not independently human-verified.
